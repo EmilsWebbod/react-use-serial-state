@@ -1,6 +1,6 @@
 {
-  "name": "@emilswebbod/react-serial-state",
-  "version": "0.0.1",
+  "name": "@ewb/react-serial-state",
+  "version": "1.0.0",
   "description": "React hook for using serial state",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,9 +22,10 @@
     "ts",
     "react",
     "npm",
-    "fetch",
-    "socket",
-    "api"
+    "useState",
+    "serial",
+    "safe",
+    "hook"
   ],
   "author": "Emil A. Olsen",
   "bugs": {
@@ -41,13 +42,12 @@
   },
   "devDependencies": {
     "@types/node": "^10.12.3",
-    "@types/react": "^16.8.3",
-    "@types/socket.io-client": "^1.4.32",
+    "@types/react": "^16.8.10",
     "husky": "^1.2.0",
     "prettier": "^1.15.2",
     "pretty-quick": "^1.10.0",
-    "react": "^16.8.2",
-    "typescript": "^3.3.3"
+    "react": "^16.8.6",
+    "typescript": "^3.4.1"
   },
   "dependencies": {},
   "peerDependencies": {
