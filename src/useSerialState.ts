@@ -7,33 +7,20 @@ interface Action<T, K extends keyof T = any> {
   subState?: Partial<T[K]>;
 }
 
-type CorrectType<T> = T extends object ? Partial<T> : T;
-type NotObject = any[] | string | number | boolean;
-
-export default function useSerialState<T extends unknown>(
+export default function useSerialState<T extends object>(
   state: T
 ): [
   T,
-  (patchState: CorrectType<T>) => void,
-  <K extends keyof T>(subKey: K, state: T[K]) => void
+  (patchState: Partial<T>) => void,
+  <K extends keyof T>(subKey: K, state: Partial<T[K]>) => void
 ] {
   const [_state, dispatch] = useReducer(reducer, state);
 
-  function reducer(oldState: T, action: any): T {
-    if (typeof oldState === 'object' && !Array.isArray(oldState)) {
-      return handleObject(oldState as object, action) as T;
-    }
-    return handleValue(oldState, action.state);
-  }
-
-  function setState(patchState: CorrectType<T>) {
+  function setState(patchState: Partial<T>) {
     dispatch({ state: patchState });
   }
 
-  function set<K extends keyof T>(key: K, keyState: T[K]) {
-    if (typeof keyState !== 'object') {
-      throw new Error('Can not use set on T !== "object"');
-    }
+  function set<K extends keyof T>(key: K, keyState: Partial<T[K]>) {
     dispatch({
       type: 'EDIT_SUB',
       key: key,
@@ -44,7 +31,7 @@ export default function useSerialState<T extends unknown>(
   return [_state as T, setState, set];
 }
 
-function handleObject<T extends object, K extends keyof T>(
+function reducer<T extends object, K extends keyof T>(
   oldState: T,
   action: Action<T, K>
 ) {
@@ -63,8 +50,4 @@ function handleObject<T extends object, K extends keyof T>(
         ...action.state
       };
   }
-}
-
-function handleValue<T extends NotObject>(oldState: T, newState: T) {
-  return newState;
 }
