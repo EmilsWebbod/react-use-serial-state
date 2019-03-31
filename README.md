@@ -32,7 +32,9 @@ function ReactComponent() {
 
         setState( { text: 'string2' }) // { text: 'string2', number: 1, obj... }
         setKey('obj', { text2: 'string3' }) { text: 'string2', number: 1, obj: { text2: 'string3', number2: 2 }}
-    })
+    }, []);
+
+    return state;
 }
 ```
 
