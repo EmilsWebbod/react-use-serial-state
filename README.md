@@ -4,6 +4,13 @@ React serial state that fixes the problem with async set state.
 Can be used normally with NoObject values, such as string, numbers and arrays.  
 Uses the useReducer hooks to be sure the state that updates is correct with earlier setStates.
 
+## Install
+
+```
+yarn add @ewb/react-serial-state
+npm install @ewb/react-serial-state
+```
+
 ## How to use
 
 ```
