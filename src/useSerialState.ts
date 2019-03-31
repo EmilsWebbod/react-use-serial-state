@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 
-interface Action<T, K extends keyof T = any> {
+interface Action<T extends object, K extends keyof T> {
   type?: 'EDIT_SUB';
   key?: K;
   state?: Partial<T>;
@@ -8,7 +8,7 @@ interface Action<T, K extends keyof T = any> {
 }
 
 export default function useSerialState<T extends object>(
-  state: T
+  state: T | null
 ): [
   T,
   (patchState: Partial<T>) => void,
@@ -32,9 +32,13 @@ export default function useSerialState<T extends object>(
 }
 
 function reducer<T extends object, K extends keyof T>(
-  oldState: T,
+  oldState: T | null,
   action: Action<T, K>
 ) {
+  if (!oldState) {
+    return action.state as T;
+  }
+
   switch (action.type) {
     case 'EDIT_SUB':
       return {
