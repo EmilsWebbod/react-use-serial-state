@@ -8,7 +8,6 @@
     "start": "yarn build:watch",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "test:active": "yarn test --watch -g active:",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run build",
     "preversion": "npm run build"
