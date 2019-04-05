@@ -1,1 +1,3 @@
-export * from './useSerialState';
+import useSerialState from './useSerialState';
+
+export default useSerialState;
