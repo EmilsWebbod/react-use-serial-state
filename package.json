@@ -1,6 +1,6 @@
 {
   "name": "@ewb/react-serial-state",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React hook for using serial state",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
