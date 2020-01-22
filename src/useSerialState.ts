@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 
 interface Action<T extends object, K extends keyof T> {
   type?: 'EDIT_SUB';
@@ -16,17 +16,23 @@ export default function useSerialState<T extends object>(
 ] {
   const [_state, dispatch] = useReducer(reducer, state);
 
-  function setState(patchState: Partial<T>) {
-    dispatch({ state: patchState });
-  }
+  const setState = useCallback(
+    function setState(patchState: Partial<T>) {
+      dispatch({ state: patchState });
+    },
+    [dispatch]
+  );
 
-  function set<K extends keyof T>(key: K, keyState: Partial<T[K]>) {
-    dispatch({
-      type: 'EDIT_SUB',
-      key: key,
-      subState: keyState
-    });
-  }
+  const set = useCallback(
+    function set<K extends keyof T>(key: K, keyState: Partial<T[K]>) {
+      dispatch({
+        type: 'EDIT_SUB',
+        key: key,
+        subState: keyState
+      });
+    },
+    [dispatch]
+  );
 
   return [_state as T, setState, set];
 }
